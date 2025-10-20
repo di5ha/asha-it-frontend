@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { applicationsAPI, jobsAPI } from '../../../services/api';
 import ApplicantCard from '../../../components/poster/ApplicantCard';
@@ -17,7 +17,7 @@ const JobApplicantsPage = () => {
     loadData();
   }, [jobId]);
 
-  const loadData = async () => {
+  const loadData = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
@@ -36,7 +36,7 @@ const JobApplicantsPage = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [jobId]);
 
   const handleApplicantClick = (applicantId) => {
     // In a real app, this would navigate to applicant details

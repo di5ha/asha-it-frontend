@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { applicationsAPI } from '../../services/api';
 import { useApp } from '../../contexts/AppContext';
@@ -17,7 +17,7 @@ const ApplicationsPage = () => {
     loadApplications();
   }, []);
 
-  const loadApplications = async () => {
+  const loadApplications = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
@@ -30,7 +30,7 @@ const ApplicationsPage = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [userProfile?.user_id]);
 
   const handleApplicationClick = (applicationId) => {
     // In a real app, this would navigate to application details

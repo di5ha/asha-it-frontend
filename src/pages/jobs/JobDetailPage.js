@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { jobsAPI, applicationsAPI } from '../../services/api';
 import { useApp } from '../../contexts/AppContext';
@@ -21,7 +21,7 @@ const JobDetailPage = () => {
     loadJob();
   }, [jobId]);
 
-  const loadJob = async () => {
+  const loadJob = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
@@ -34,7 +34,8 @@ const JobDetailPage = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [jobId]);
+  
 
   const handleApply = () => {
     if (!userProfile?.profile?.resume_components) {

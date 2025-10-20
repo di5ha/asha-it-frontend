@@ -9,7 +9,6 @@ const ResumeUploadPage = () => {
   const navigate = useNavigate();
   const [uploading, setUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
-  const [resumeId, setResumeId] = useState(null);
   const [parsingStatus, setParsingStatus] = useState(null);
 
   const onDrop = async (acceptedFiles) => {
@@ -36,7 +35,7 @@ const ResumeUploadPage = () => {
 
       // Step 1: Get pre-signed URL
       const uploadData = await resumeAPI.getResumeUploadUrl(file.name, file.type);
-      setResumeId(uploadData.resume_id);
+      
 
       // Step 2: Upload file to S3 (simulated)
       await simulateS3Upload(file, uploadData.upload_url);

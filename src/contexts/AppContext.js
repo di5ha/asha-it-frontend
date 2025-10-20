@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { profileAPI } from '../services/api';
 import { useAuth } from './AuthContext';
 
@@ -26,9 +26,9 @@ export const AppProvider = ({ children }) => {
       setUserProfile(null);
       setUserType(null);
     }
-  }, [isAuthenticated, user]);
+  }, [isAuthenticated, user, loadUserProfile]);
 
-  const loadUserProfile = async () => {
+  const loadUserProfile = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
@@ -41,7 +41,7 @@ export const AppProvider = ({ children }) => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [user]);
 
   const updateProfile = async (profileData) => {
     try {

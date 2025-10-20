@@ -64,7 +64,7 @@ const OnboardingPage = () => {
     
     if (!formData.phone.trim()) {
       errors.phone = 'Phone number is required';
-    } else if (!/^\+?[\d\s\-\(\)]+$/.test(formData.phone)) {
+    } else if (!/^\+?[\d\s\-()]+$/.test(formData.phone)) {
       errors.phone = 'Please enter a valid phone number';
     }
     

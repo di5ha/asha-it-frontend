@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { jobsAPI } from '../../../services/api';
-import JobCard from '../../../components/jobs/JobCard';
 import './PosterDashboardPage.css';
 
 const PosterDashboardPage = () => {

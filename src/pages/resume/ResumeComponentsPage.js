@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useApp } from '../../contexts/AppContext';
-import { resumeAPI } from '../../services/api';
 import { getResumeComponents } from '../../services/demoData';
 import toast from 'react-hot-toast';
 import ResumeComponentEditor from '../../components/resume/ResumeComponentEditor';
@@ -21,7 +20,7 @@ const ResumeComponentsPage = () => {
     loadResumeComponents();
   }, []);
 
-  const loadResumeComponents = async () => {
+  const loadResumeComponents = useCallback(async () => {
     try {
       setLoadingComponents(true);
       
@@ -82,7 +81,7 @@ const ResumeComponentsPage = () => {
     } finally {
       setLoadingComponents(false);
     }
-  };
+  }, [location.state?.resumeId]);
 
   const handleComponentEdit = (componentType) => {
     setEditingComponent(componentType);

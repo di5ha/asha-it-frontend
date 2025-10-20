@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { jobsAPI } from '../../services/api';
 import JobCard from '../../components/jobs/JobCard';
@@ -26,7 +26,7 @@ const DashboardPage = () => {
     loadJobs();
   }, [filters, pagination.page]);
 
-  const loadJobs = async () => {
+  const loadJobs = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
@@ -48,8 +48,13 @@ const DashboardPage = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [filters, pagination.page, pagination.limit]);
 
+ 
+useEffect(() => {
+  loadJobs();
+}, [loadJobs]);
+ 
   const handleFilterChange = (newFilters) => {
     setFilters(newFilters);
     setPagination(prev => ({ ...prev, page: 1 }));
