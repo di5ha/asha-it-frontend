@@ -19,15 +19,6 @@ export const AppProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    if (isAuthenticated && user) {
-      loadUserProfile();
-    } else {
-      setUserProfile(null);
-      setUserType(null);
-    }
-  }, [isAuthenticated, user, loadUserProfile]);
-
   const loadUserProfile = useCallback(async () => {
     try {
       setLoading(true);
@@ -43,7 +34,17 @@ export const AppProvider = ({ children }) => {
     }
   }, [user]);
 
-  const updateProfile = async (profileData) => {
+  useEffect(() => {
+    if (isAuthenticated && user) {
+      loadUserProfile();
+    } else {
+      setUserProfile(null);
+      setUserType(null);
+    }
+  }, [isAuthenticated, user, loadUserProfile]);
+
+ 
+  const updateProfile = useCallback(async (profileData) => {
     try {
       setLoading(true);
       setError(null);
@@ -58,9 +59,9 @@ export const AppProvider = ({ children }) => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [user]);
 
-  const updateResumeComponents = async (components) => {
+  const updateResumeComponents = useCallback(async (components) => {
     try {
       setLoading(true);
       setError(null);
@@ -81,7 +82,7 @@ export const AppProvider = ({ children }) => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [user])    ;
 
   const clearError = () => {
     setError(null);
