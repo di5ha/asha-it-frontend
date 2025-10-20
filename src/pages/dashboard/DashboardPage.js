@@ -22,10 +22,6 @@ const DashboardPage = () => {
     total: 0
   });
 
-  useEffect(() => {
-    loadJobs();
-  }, [filters, pagination.page]);
-
   const loadJobs = useCallback(async () => {
     try {
       setLoading(true);
@@ -53,8 +49,8 @@ const DashboardPage = () => {
  
 useEffect(() => {
   loadJobs();
-}, [loadJobs]);
- 
+}, [filters, pagination.page, loadJobs]);
+
   const handleFilterChange = (newFilters) => {
     setFilters(newFilters);
     setPagination(prev => ({ ...prev, page: 1 }));

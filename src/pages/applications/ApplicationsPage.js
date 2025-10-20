@@ -13,9 +13,6 @@ const ApplicationsPage = () => {
   const [error, setError] = useState(null);
   const [filter, setFilter] = useState('all');
 
-  useEffect(() => {
-    loadApplications();
-  }, []);
 
   const loadApplications = useCallback(async () => {
     try {
@@ -32,6 +29,11 @@ const ApplicationsPage = () => {
     }
   }, [userProfile?.user_id]);
 
+
+
+  useEffect(() => {
+    loadApplications();
+  }, [loadApplications]);
   const handleApplicationClick = (applicationId) => {
     // In a real app, this would navigate to application details
     console.log('View application:', applicationId);

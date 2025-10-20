@@ -48,11 +48,8 @@ const EditJobPage = () => {
     'full-stack', 'devops', 'machine-learning', 'data-science'
   ];
 
-  useEffect(() => {
-    loadJob();
-  }, [jobId]);
 
-  const loadJob = async () => {
+  const loadJob = useCallback(async () => {
     try {
       setLoading(true);
       const job = await jobsAPI.getJobById(jobId);
@@ -76,7 +73,7 @@ const EditJobPage = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [jobId, navigate]);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -93,6 +90,10 @@ const EditJobPage = () => {
       }));
     }
   };
+  useEffect(() => {
+    loadJob();
+  }, [jobId, loadJob]);
+
 
   const handleTagToggle = (tag) => {
     const currentTags = formData.tags || [];

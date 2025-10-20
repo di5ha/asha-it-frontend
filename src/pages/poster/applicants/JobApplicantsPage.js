@@ -13,9 +13,6 @@ const JobApplicantsPage = () => {
   const [error, setError] = useState(null);
   const [filter, setFilter] = useState('all');
 
-  useEffect(() => {
-    loadData();
-  }, [jobId]);
 
   const loadData = useCallback(async () => {
     try {
@@ -37,6 +34,10 @@ const JobApplicantsPage = () => {
       setLoading(false);
     }
   }, [jobId]);
+
+  useEffect(() => {
+    loadData();
+  }, [jobId, loadData]);
 
   const handleApplicantClick = (applicantId) => {
     // In a real app, this would navigate to applicant details

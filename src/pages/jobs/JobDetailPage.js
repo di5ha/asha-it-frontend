@@ -17,9 +17,6 @@ const JobDetailPage = () => {
   const [showApplyModal, setShowApplyModal] = useState(false);
   const [applying, setApplying] = useState(false);
 
-  useEffect(() => {
-    loadJob();
-  }, [jobId]);
 
   const loadJob = useCallback(async () => {
     try {
@@ -35,7 +32,11 @@ const JobDetailPage = () => {
       setLoading(false);
     }
   }, [jobId]);
-  
+
+  useEffect(() => {
+    loadJob();
+  }, [jobId, loadJob]);
+
 
   const handleApply = () => {
     if (!userProfile?.profile?.resume_components) {

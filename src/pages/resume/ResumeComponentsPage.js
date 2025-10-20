@@ -16,9 +16,6 @@ const ResumeComponentsPage = () => {
   const [editingComponent, setEditingComponent] = useState(null);
   const [saving, setSaving] = useState(false);
 
-  useEffect(() => {
-    loadResumeComponents();
-  }, []);
 
   const loadResumeComponents = useCallback(async () => {
     try {
@@ -82,6 +79,10 @@ const ResumeComponentsPage = () => {
       setLoadingComponents(false);
     }
   }, [location.state?.resumeId]);
+
+  useEffect(() => {
+    loadResumeComponents();
+  }, [loadResumeComponents]);
 
   const handleComponentEdit = (componentType) => {
     setEditingComponent(componentType);
